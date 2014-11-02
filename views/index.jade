@@ -7,9 +7,36 @@ block content
 				h1 Welcome to BitCoffee
 				img.logo(src='http://i.imgur.com/LUBA8Xr.png',style='width: 304px; height: 228px;') 
 				br
-				button.btn-large.btn-primary(onclick='window.location=\'https://www.coinbase.com/oauth/authorize?response_type=code&client_id=0cf1b16d57e27d5b342880a130cd19b2403f03cde6e74bb404b0f18ae7d1c9af&redirect_uri=https://bitcoffeebackend.herokuapp.com/login\';', value='click here') 8 Oz
+				button#small.btn-large.btn-primary(onclick='window.location=\'https://www.coinbase.com/oauth/authorize?response_type=code&client_id=0cf1b16d57e27d5b342880a130cd19b2403f03cde6e74bb404b0f18ae7d1c9af&redirect_uri=https://bitcoffeebackend.herokuapp.com/login\';', value='click here') Small, Please
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-				button.btn-large.btn-primary(onclick='window.location=\'https://www.coinbase.com/oauth/authorize?response_type=code&client_id=0cf1b16d57e27d5b342880a130cd19b2403f03cde6e74bb404b0f18ae7d1c9af&redirect_uri=https://bitcoffeebackend.herokuapp.com/login\';', value='click here') 12 Oz
+				button#large.btn-large.btn-primary(onclick='window.location=\'https://www.coinbase.com/oauth/authorize?response_type=code&client_id=0cf1b16d57e27d5b342880a130cd19b2403f03cde6e74bb404b0f18ae7d1c9af&redirect_uri=https://bitcoffeebackend.herokuapp.com/login\';', value='click here') Large, Please
+				script.
+					$('#small').bind('click', function(event) {
+					    small_cup();
+					});
 
+					$('#large').bind('click', function(event) {
+					    large_cup();
+					});
 
+					function small_cup() {
+						$.get({
+						            url: 'http://bitcoffeebackend.herokuapp.com/setSize',
+									dataType: 'json',
+						            data: {"duration" : '8'},
+						            success: function(paySuccess) {
+						            	console.log("fuckyeah")
+						            }
+						        });
+					}
 
+					function large_cup() {
+						$.get({
+						            url: 'http://bitcoffeebackend.herokuapp.com/setSize',
+									dataType: 'json',
+						            data: {"duration" : '12'},
+						            success: function(paySuccess) {
+						            	console.log("fuckyeah1")
+						            }
+						        });
+					}
