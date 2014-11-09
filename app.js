@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/pay', function (req, res) {
-     spark.login({username: 'canzhiye@gmail.com', password: 'BitCoffee'}).then(
+    spark.login({username: 'USER', password: 'PASS'}).then(
     function(token){
         spark.listDevices().then(
             function(success) {

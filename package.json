@@ -15,19 +15,8 @@
     "spark-io": "^0.5.1",
     "stylus": "^0.49.2"
   },
-  "main": "spark.js",
+  "main": "app.js",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/canzhiye/bitcoffee.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/canzhiye/bitcoffee/issues"
-  },
-  "homepage": "https://github.com/canzhiye/bitcoffee"
-}
+  }
