@@ -1,4 +1,7 @@
 var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var spark = require('spark');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,15 +10,14 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+//var config = require('/config.json');
 
-var app = express();
+// respond with "Hello World!" on the homepage
+console.log('working...');
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,36 +28,43 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.get('/', function (req, res) {
+  console.log('working...');
+
+  res.render('index.jade')
+})
+
+app.post('/pay', function (req, res) {
+     spark.login({username: 'canzhiye@gmail.com', password: 'BitCoffee'}).then(
+    function(token){
+        spark.listDevices().then(
+            function(success) {
+                var device = success[0]
+                console.log(device)
+
+                device.callFunction('brew', '9', function(err, data) {
+                    if (err) {
+                        console.log('An error occurred:', err);
+                    } else {
+                        console.log('Function called succesfully:', data);
+                    }
+                });
+            },
+            function(failure) {
+                console.log('failure')
+            }
+        );
+    },
+    function(err) {
+        console.log('API call completed on promise fail: ', err);
+    }
+    );
+})
+
+var port     = process.env.PORT || 3000;
+
+http.listen(port, function(){
+  console.log('listening on ', port);
 });
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-
 
 module.exports = app;
