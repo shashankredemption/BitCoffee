@@ -24,8 +24,8 @@ block content
 						            url: 'http://bitcoffeebackend.herokuapp.com/setSize',
 									dataType: 'json',
 						            data: {"duration" : '8'},
-						            success: function(paySuccess) {
-						            	console.log("fuckyeah")
+						            success: function(smallPaySuccess) {
+						            	console.log("small cup processed")
 						            }
 						        });
 					}
@@ -35,8 +35,8 @@ block content
 						            url: 'http://bitcoffeebackend.herokuapp.com/setSize',
 									dataType: 'json',
 						            data: {"duration" : '12'},
-						            success: function(paySuccess) {
-						            	console.log("fuckyeah1")
+						            success: function(largePaySuccess) {
+						            	console.log("large cup processed")
 						            }
 						        });
 					}
